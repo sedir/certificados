@@ -95,7 +95,9 @@ class ImageText(object):
 
         height = y
         for index, line in enumerate(lines):
-            height += text_height + line_spacing
+            height += text_height
+            if not index == 0:
+                height += line_spacing
             if place == 'left':
                 self.write_text((x, height), line, font_filename, font_size,
                                 color)
@@ -112,7 +114,7 @@ class ImageText(object):
             elif place == 'justify':
                 words = line.split()
                 if (index == len(lines) - 1 and not justify_last_line) or \
-                   len(words) == 1 or (lines[index][-1] == '\n'):
+                   len(words) == 1 or (lines[index][-1] == '\n' and not justify_last_line):
                     self.write_text((x, height), line, font_filename, font_size,
                                     color)
                     continue
