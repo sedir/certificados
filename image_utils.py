@@ -6,7 +6,7 @@
 # License: GPL <http://www.gnu.org/copyleft/gpl.html>
 
 from PIL import Image, ImageDraw, ImageFont
-
+import re
 
 class ImageText(object):
     def __init__(self, filename_or_size, mode='RGBA', background=(0, 0, 0, 0),
@@ -70,19 +70,29 @@ class ImageText(object):
                        justify_last_line=False):
         lines = []
         line = []
-        words = text.split()
+        words = re.findall(r'\S+|\n+', text.strip())
+
         for word in words:
             new_line = ' '.join(line + [word])
             size = self.get_text_size(font_filename, font_size, new_line)
             text_height = size[1]
+
             if size[0] <= box_width:
+                if word.count('\n') > 0:
+                    for i in range(word.count('\n')):
+                        line.append('\n')
+                        lines.append(line)
+                        line = []
+                    continue
                 line.append(word)
             else:
                 lines.append(line)
                 line = [word]
+
         if line:
             lines.append(line)
         lines = [' '.join(line) for line in lines if line]
+
         height = y
         for index, line in enumerate(lines):
             height += text_height + line_spacing
@@ -102,7 +112,7 @@ class ImageText(object):
             elif place == 'justify':
                 words = line.split()
                 if (index == len(lines) - 1 and not justify_last_line) or \
-                   len(words) == 1:
+                   len(words) == 1 or (lines[index][-1] == '\n'):
                     self.write_text((x, height), line, font_filename, font_size,
                                     color)
                     continue
