@@ -1,0 +1,114 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR ORGANIZATION
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"POT-Creation-Date: 2019-02-26 13:55+0100\n"
+"PO-Revision-Date: 2019-02-26 14:08+0100\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: pygettext.py 1.5\n"
+"X-Generator: Poedit 2.2.1\n"
+"Last-Translator: \n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Language: pt_BR\n"
+
+#: main.py:11
+msgid "Certificate image model"
+msgstr "Imagem de modelo de certificado"
+
+#: main.py:12 main.py:15 main.py:36
+msgid "Search"
+msgstr "Buscar"
+
+#: main.py:13
+msgid "JPG images"
+msgstr "Imagens JPG"
+
+#: main.py:13
+msgid "PNG images"
+msgstr "Imagens PNG"
+
+#: main.py:14
+msgid "Input sheet"
+msgstr "Planilha de entrada"
+
+#: main.py:16
+msgid "Certificate text"
+msgstr "Texto do certificado"
+
+#: main.py:17
+msgid "Text color"
+msgstr "Cor da fonte"
+
+#: main.py:18
+msgid "Font"
+msgstr "Fonte"
+
+#: main.py:19
+msgid "Font size"
+msgstr "Tamanho da fonte"
+
+#: main.py:21
+msgid "Line spacing"
+msgstr "Espaçamento entre linhas"
+
+#: main.py:24
+msgid "Left"
+msgstr "Esquerda"
+
+#: main.py:24
+msgid "Text alignment"
+msgstr "Alinhamento do texto"
+
+#: main.py:25
+msgid "Right"
+msgstr "Direita"
+
+#: main.py:26
+msgid "Center"
+msgstr "Centralizado"
+
+#: main.py:27
+msgid "Justified"
+msgstr "Justificado"
+
+#: main.py:28
+msgid "Position X (%)"
+msgstr "Posição X (%)"
+
+#: main.py:30
+msgid "Position Y (%)"
+msgstr "Posição Y (%)"
+
+#: main.py:32
+msgid "Width (%)"
+msgstr "Largura (%)"
+
+#: main.py:35
+msgid "Output folder"
+msgstr "Pasta de saída"
+
+#: main.py:39
+msgid "Preview:"
+msgstr "Pré-visualizar:"
+
+#: main.py:44
+msgid "Close"
+msgstr "Fechar"
+
+#: main.py:47
+msgid "Mass certificate generator"
+msgstr "Gerador de certificados em massa"
+
+#: main.py:94
+msgid "Processing certificates"
+msgstr "Processando certificados"
+
+#: main.py:95
+msgid "Please wait..."
+msgstr "Por favor, espere…"

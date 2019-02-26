@@ -1,50 +1,55 @@
 import os
 
+import gettext
 import PySimpleGUI as sg
 import matplotlib.font_manager as fontman
 import pandas as pd
 
 import certificate
 
+pt = gettext.translation('main', localedir='locale', languages=['pt_BR'])
+pt.install()
+
+
 font_list = sorted(fontman.findSystemFonts(fontpaths=None, fontext='ttf'))
 
-col_left = [[sg.Text('Modelo de certificado'), sg.Input(key='path_model'),
-             sg.FileBrowse('Procurar', target='path_model',
-                           file_types=(('Imagens JPG', '*.jpg'), ('Imagens PNG', '*.png'),))],
-            [sg.Text('Planilha de entrada'), sg.Input(key='path_sheet'),
-             sg.FileBrowse('Procurar', target='path_sheet')],
-            [sg.Text('Texto do certificado'), sg.Multiline(key='certificate_text'),
-             sg.ColorChooserButton('Cor do texto', key='color')],
-            [sg.Text('Fonte'), sg.Combo(font_list, key='font', readonly=True)],
-            [sg.Text('Tamanho da fonte'), sg.Slider(range=(12, 172), orientation='h', size=(48, 20),
-                                                    change_submits=True, key='slider_font')],
-            [sg.Text('Espaçamento entre linhas'), sg.Slider(range=(1, 50), orientation='h', size=(44, 20),
-                                                            default_value=10.0,
-                                                            change_submits=True, key='slider_linespacing')],
-            [sg.Text('Alinhamento'), sg.Radio('Esquerda', "alignment", key='align_left'),
-             sg.Radio('Direita', "alignment", key='align_right'),
-             sg.Radio('Centro', "alignment", key='align_center'),
-             sg.Radio('Justificado', "alignment", key='align_justify', default=True), ],
-            [sg.Text('Posição X (%)'), sg.Slider(range=(1, 100), orientation='h', size=(50, 20), resolution=0.5,
-                                                 change_submits=False, default_value=15.0, key='slider_x')],
-            [sg.Text('Posição Y (%)'), sg.Slider(range=(1, 100), orientation='h', size=(50, 20), resolution=0.5,
-                                                 change_submits=False, default_value=35.0, key='slider_y')],
-            [sg.Text('Largura (%)'), sg.Slider(range=(1, 100), orientation='h', default_value=70.0,
-                                               size=(51, 20), resolution=0.5,
-                                               change_submits=False, key='width')],
-            [sg.Text('Pasta de saída'), sg.Input(key='path_output'),
-             sg.FolderBrowse('Procurar', target='path_output')],
+col_left = [[sg.Text(_('Certificate image model')), sg.Input(key='path_model'),
+             sg.FileBrowse(_('Search'), target='path_model',
+                           file_types=((_('JPG images'), '*.jpg'), (_('PNG images'), '*.png'),))],
+            [sg.Text(_('Input sheet')), sg.Input(key='path_sheet'),
+             sg.FileBrowse(_('Search'), target='path_sheet')],
+            [sg.Text(_('Certificate text')), sg.Multiline(key='certificate_text'),
+             sg.ColorChooserButton(_('Text color'), key='color')],
+            [sg.Text(_('Font')), sg.Combo(font_list, key='font', readonly=True)],
+            [sg.Text(_('Font size')), sg.Slider(range=(12, 172), orientation='h', size=(48, 20),
+                                                       change_submits=True, key='slider_font')],
+            [sg.Text(_('Line spacing')), sg.Slider(range=(1, 50), orientation='h', size=(44, 20),
+                                                               default_value=10.0,
+                                                               change_submits=True, key='slider_linespacing')],
+            [sg.Text(_('Text alignment')), sg.Radio(_('Left'), "alignment", key='align_left'),
+             sg.Radio(_('Right'), "alignment", key='align_right'),
+             sg.Radio(_('Center'), "alignment", key='align_center'),
+             sg.Radio(_('Justified'), "alignment", key='align_justify', default=True), ],
+            [sg.Text(_('Position X (%)')), sg.Slider(range=(1, 100), orientation='h', size=(50, 20), resolution=0.5,
+                                                    change_submits=False, default_value=15.0, key='slider_x')],
+            [sg.Text(_('Position Y (%)')), sg.Slider(range=(1, 100), orientation='h', size=(50, 20), resolution=0.5,
+                                                    change_submits=False, default_value=35.0, key='slider_y')],
+            [sg.Text(_('Width (%)')), sg.Slider(range=(1, 100), orientation='h', default_value=70.0,
+                                                  size=(51, 20), resolution=0.5,
+                                                  change_submits=False, key='width')],
+            [sg.Text(_('Output folder')), sg.Input(key='path_output'),
+             sg.FolderBrowse(_('Search'), target='path_output')],
             ]
 
-col_right = [[sg.Text('Pré-visualização:')],
+col_right = [[sg.Text(_('Preview:'))],
              [sg.Image(data='', size=(400, 309), key='preview')]]
 
 layout = [
     [sg.Column(col_left), sg.Column(col_right)],
-    [sg.OK(), sg.Cancel('Cancelar')],
+    [sg.OK(), sg.Cancel(_('Close'))],
 ]
 
-window = sg.Window("Gerador de certificados").Layout(layout)
+window = sg.Window(_("Mass certificate generator")).Layout(layout)
 # Event Loop
 
 current_values = None
@@ -91,8 +96,8 @@ while True:
         if path_data and os.path.exists(path_data) and not os.path.isdir(
                 path_data) and path_output and os.path.exists(path_output) and os.path.isdir(path_output):
             for i, x in enumerate(cache[path_data]):
-                sg.OneLineProgressMeter('Processando certificados', i + 1, len(cache[path_data]), 'meter',
-                                        'Por favor, aguarde...')
+                sg.OneLineProgressMeter(_('Processing certificates'), i + 1, len(cache[path_data]), 'meter',
+                                        _('Please wait...'))
                 cert_data = certificate.generate_certificate(values['certificate_text'], cache[path].copy(),
                                                              values['slider_x'],
                                                              values['slider_y'], values['width'],
