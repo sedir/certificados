@@ -1,4 +1,4 @@
-[certificate generator photo](screenshot/screenshot.png)
+![certificate generator photo](screenshot/screenshot.png)
 
 ## Install
 
