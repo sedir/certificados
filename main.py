@@ -41,7 +41,7 @@ col_right = [[sg.Text('Preview:')],
 
 layout = [
     [sg.Column(col_left), sg.Column(col_right)],
-    [sg.OK(), sg.Cancel('Cancel')],
+    [sg.OK('Generate'), sg.Cancel('Cancel')],
 ]
 
 window = sg.Window("Certificate generator").Layout(layout)
