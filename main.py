@@ -1,50 +1,50 @@
 import os
 
-import PySimpleGUI as sg
 import matplotlib.font_manager as fontman
 import pandas as pd
+import PySimpleGUI as sg
 
-import certificate
+from utils import certificate
 
 font_list = sorted(fontman.findSystemFonts(fontpaths=None, fontext='ttf'))
 
-col_left = [[sg.Text('Modelo de certificado'), sg.Input(key='path_model'),
-             sg.FileBrowse('Procurar', target='path_model',
+col_left = [[sg.Text('Certificate template'), sg.Input(key='path_model'),
+             sg.FileBrowse('search', target='path_model',
                            file_types=(('Imagens JPG', '*.jpg'), ('Imagens PNG', '*.png'),))],
-            [sg.Text('Planilha de entrada'), sg.Input(key='path_sheet'),
-             sg.FileBrowse('Procurar', target='path_sheet')],
-            [sg.Text('Texto do certificado'), sg.Multiline(key='certificate_text'),
-             sg.ColorChooserButton('Cor do texto', key='color')],
-            [sg.Text('Fonte'), sg.Combo(font_list, key='font', readonly=True)],
-            [sg.Text('Tamanho da fonte'), sg.Slider(range=(12, 172), orientation='h', size=(48, 20),
+            [sg.Text('Input spreadsheet'), sg.Input(key='path_sheet'),
+             sg.FileBrowse('search', target='path_sheet')],
+            [sg.Text('Certificate text'), sg.Multiline(key='certificate_text'),
+             sg.ColorChooserButton('Text color', key='color')],
+            [sg.Text('Font'), sg.Combo(font_list, key='font', readonly=True)],
+            [sg.Text('Font size'), sg.Slider(range=(12, 172), orientation='h', size=(48, 20),
                                                     change_submits=True, key='slider_font')],
-            [sg.Text('Espaçamento entre linhas'), sg.Slider(range=(1, 50), orientation='h', size=(44, 20),
+            [sg.Text('Line spacing'), sg.Slider(range=(1, 50), orientation='h', size=(44, 20),
                                                             default_value=10.0,
                                                             change_submits=True, key='slider_linespacing')],
-            [sg.Text('Alinhamento'), sg.Radio('Esquerda', "alignment", key='align_left'),
-             sg.Radio('Direita', "alignment", key='align_right'),
-             sg.Radio('Centro', "alignment", key='align_center'),
-             sg.Radio('Justificado', "alignment", key='align_justify', default=True), ],
-            [sg.Text('Posição X (%)'), sg.Slider(range=(1, 100), orientation='h', size=(50, 20), resolution=0.5,
+            [sg.Text('Alignment'), sg.Radio('Left', "alignment", key='align_left'),
+             sg.Radio('Right', "alignment", key='align_right'),
+             sg.Radio('Center', "alignment", key='align_center'),
+             sg.Radio('Justify', "alignment", key='align_justify', default=True), ],
+            [sg.Text('Position X (%)'), sg.Slider(range=(1, 100), orientation='h', size=(50, 20), resolution=0.5,
                                                  change_submits=False, default_value=15.0, key='slider_x')],
-            [sg.Text('Posição Y (%)'), sg.Slider(range=(1, 100), orientation='h', size=(50, 20), resolution=0.5,
+            [sg.Text('Position Y (%)'), sg.Slider(range=(1, 100), orientation='h', size=(50, 20), resolution=0.5,
                                                  change_submits=False, default_value=35.0, key='slider_y')],
-            [sg.Text('Largura (%)'), sg.Slider(range=(1, 100), orientation='h', default_value=70.0,
+            [sg.Text('Width (%)'), sg.Slider(range=(1, 100), orientation='h', default_value=70.0,
                                                size=(51, 20), resolution=0.5,
                                                change_submits=False, key='width')],
-            [sg.Text('Pasta de saída'), sg.Input(key='path_output'),
-             sg.FolderBrowse('Procurar', target='path_output')],
+            [sg.Text('Output folder'), sg.Input(key='path_output'),
+             sg.FolderBrowse('search', target='path_output')],
             ]
 
-col_right = [[sg.Text('Pré-visualização:')],
+col_right = [[sg.Text('Preview:')],
              [sg.Image(data='', size=(400, 309), key='preview')]]
 
 layout = [
     [sg.Column(col_left), sg.Column(col_right)],
-    [sg.OK(), sg.Cancel('Cancelar')],
+    [sg.OK('Generate'), sg.Cancel('Cancel')],
 ]
 
-window = sg.Window("Gerador de certificados").Layout(layout)
+window = sg.Window("Certificate generator").Layout(layout)
 # Event Loop
 
 current_values = None
@@ -86,13 +86,13 @@ while True:
                                                     example_data, True)
         window.FindElement('preview').Update(data=im, size=size)
 
-    if event == 'OK':
+    if event == 'Generate':
 
         if path_data and os.path.exists(path_data) and not os.path.isdir(
                 path_data) and path_output and os.path.exists(path_output) and os.path.isdir(path_output):
             for i, x in enumerate(cache[path_data]):
-                sg.OneLineProgressMeter('Processando certificados', i + 1, len(cache[path_data]), 'meter',
-                                        'Por favor, aguarde...')
+                sg.OneLineProgressMeter('Processing certificates', i + 1, len(cache[path_data]), 'meter',
+                                        'Please wait...')
                 cert_data = certificate.generate_certificate(values['certificate_text'], cache[path].copy(),
                                                              values['slider_x'],
                                                              values['slider_y'], values['width'],
