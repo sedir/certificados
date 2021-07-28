@@ -1,10 +1,12 @@
-from io import BytesIO
-from pathlib import Path
-import image_utils
-from PIL import Image
-import matplotlib.font_manager as fontman
 import os
 import traceback
+from io import BytesIO
+from pathlib import Path
+
+import matplotlib.font_manager as fontman
+from PIL import Image
+
+from utils import image_utils
 
 
 def find_font_file(query):

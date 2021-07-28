@@ -5,7 +5,7 @@ import matplotlib.font_manager as fontman
 import pandas as pd
 import locale
 
-import certificate
+from utils import certificate
 
 gt = gettext.translation('main', localedir='locale', languages=[locale.getlocale()[0]], fallback=True)
 gt.install()
@@ -90,7 +90,7 @@ while True:
                                                     example_data, True)
         window.FindElement('preview').Update(data=im, size=size)
 
-    if event == 'OK':
+    if event == 'Generate':
 
         if path_data and os.path.exists(path_data) and not os.path.isdir(
                 path_data) and path_output and os.path.exists(path_output) and os.path.isdir(path_output):
