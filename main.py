@@ -56,7 +56,7 @@ current_values = None
 cache = {}
 
 while True:
-    event, values = window.Read(timeout=0)
+    event, values = window.Read(timeout=300)
     if current_values is None:
         current_values = values
     if event is None:
