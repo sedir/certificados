@@ -1,5 +1,4 @@
 import os
-
 import gettext
 import PySimpleGUI as sg
 import matplotlib.font_manager as fontman
@@ -19,24 +18,24 @@ col_left = [[sg.Text(_('Certificate model image')), sg.Input(key='path_model'),
             [sg.Text(_('Input sheet')), sg.Input(key='path_sheet'),
              sg.FileBrowse(_('Search'), target='path_sheet')],
             [sg.Text(_('Certificate text')), sg.Multiline(key='certificate_text'),
-             sg.ColorChooserButton(_('Text color'), key='color')],
-            [sg.Text(_('Font')), sg.Combo(font_list, key='font', readonly=True)],
+             sg.In(key='color', visible=False), sg.ColorChooserButton(_('Text color'), target='color')],
+            [sg.Text(_('Font')), sg.Combo(font_list, key='font', readonly=True, default_value=font_list[0])],
             [sg.Text(_('Font size')), sg.Slider(range=(12, 172), orientation='h', size=(48, 20),
-                                                       change_submits=True, key='slider_font')],
+                                                change_submits=True, key='slider_font')],
             [sg.Text(_('Line spacing')), sg.Slider(range=(1, 50), orientation='h', size=(44, 20),
-                                                               default_value=10.0,
-                                                               change_submits=True, key='slider_linespacing')],
+                                                   default_value=10.0,
+                                                   change_submits=True, key='slider_linespacing')],
             [sg.Text(_('Text alignment')), sg.Radio(_('Left'), "alignment", key='align_left'),
              sg.Radio(_('Right'), "alignment", key='align_right'),
              sg.Radio(_('Center'), "alignment", key='align_center'),
              sg.Radio(_('Justified'), "alignment", key='align_justify', default=True), ],
             [sg.Text(_('Position X (%)')), sg.Slider(range=(1, 100), orientation='h', size=(50, 20), resolution=0.5,
-                                                    change_submits=False, default_value=15.0, key='slider_x')],
+                                                     change_submits=False, default_value=15.0, key='slider_x')],
             [sg.Text(_('Position Y (%)')), sg.Slider(range=(1, 100), orientation='h', size=(50, 20), resolution=0.5,
-                                                    change_submits=False, default_value=35.0, key='slider_y')],
+                                                     change_submits=False, default_value=35.0, key='slider_y')],
             [sg.Text(_('Width (%)')), sg.Slider(range=(1, 100), orientation='h', default_value=70.0,
-                                                  size=(51, 20), resolution=0.5,
-                                                  change_submits=False, key='width')],
+                                                size=(51, 20), resolution=0.5,
+                                                change_submits=False, key='width')],
             [sg.Text(_('Output folder')), sg.Input(key='path_output'),
              sg.FolderBrowse(_('Search'), target='path_output')],
             ]
@@ -67,7 +66,7 @@ while True:
     path_output = values['path_output']
 
     alignment = [x[0].split('_')[1] for x in values.items() if 'align_' in x[0] and x[1] is True][0]
-    color = values['color'].lstrip('#') if values['color'] else '000000'
+    color = values['color'].lstrip('#') if values.get('color') else '000000'
     color = tuple(int(color[i:i + 2], 16) for i in (0, 2, 4))
 
     if path and os.path.exists(path) and not os.path.isdir(path) and current_values != values:
