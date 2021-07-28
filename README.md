@@ -24,7 +24,7 @@ python3 main.py
 
 **Input spreadsheet: accepts** .csv or .xlsx formats.
 
-**Certificate text**: the spreadsheet information is filled in using `{}`, which represents data from the file line as you can see in the example image.
+**Certificate text**: the spreadsheet information is filled in using `{}` or `{0}` corresponding to the column index, which represents data from the file line as you can see in the example image.
 
 **Font**: Select a font that is installed on your system.
 
