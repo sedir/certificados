@@ -4,12 +4,12 @@ import gettext
 import PySimpleGUI as sg
 import matplotlib.font_manager as fontman
 import pandas as pd
+import locale
 
 import certificate
 
-pt = gettext.translation('main', localedir='locale', languages=['pt_BR'])
-pt.install()
-
+gt = gettext.translation('main', localedir='locale', languages=[locale.getlocale()[0]], fallback=True)
+gt.install()
 
 font_list = sorted(fontman.findSystemFonts(fontpaths=None, fontext='ttf'))
 
