@@ -6,19 +6,19 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "POT-Creation-Date: 2019-02-26 13:55+0100\n"
-"PO-Revision-Date: 2019-02-26 14:08+0100\n"
+"PO-Revision-Date: 2021-07-28 15:27-0300\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: pygettext.py 1.5\n"
-"X-Generator: Poedit 2.2.1\n"
+"X-Generator: Poedit 2.3\n"
 "Last-Translator: \n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "Language: pt_BR\n"
 
 #: main.py:11
-msgid "Certificate image model"
+msgid "Certificate model image"
 msgstr "Imagem de modelo de certificado"
 
 #: main.py:12 main.py:15 main.py:36
@@ -95,7 +95,7 @@ msgstr "Pasta de saída"
 
 #: main.py:39
 msgid "Preview:"
-msgstr "Pré-visualizar:"
+msgstr "Pré-visualização:"
 
 #: main.py:44
 msgid "Close"
@@ -111,4 +111,4 @@ msgstr "Processando certificados"
 
 #: main.py:95
 msgid "Please wait..."
-msgstr "Por favor, espere…"
+msgstr "Por favor, aguarde..."

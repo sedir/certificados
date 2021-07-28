@@ -13,7 +13,7 @@ gt.install()
 
 font_list = sorted(fontman.findSystemFonts(fontpaths=None, fontext='ttf'))
 
-col_left = [[sg.Text(_('Certificate image model')), sg.Input(key='path_model'),
+col_left = [[sg.Text(_('Certificate model image')), sg.Input(key='path_model'),
              sg.FileBrowse(_('Search'), target='path_model',
                            file_types=((_('JPG images'), '*.jpg'), (_('PNG images'), '*.png'),))],
             [sg.Text(_('Input sheet')), sg.Input(key='path_sheet'),
